@@ -23,8 +23,10 @@ namespace practice3.Controllers
         [HttpGet]
         public IActionResult GetProducts()
         {
-            ProductManager productMngr = new ProductManager();
-            return Ok(productMngr.GetProducts());
+           
         }
+
+
+
     }
 }
