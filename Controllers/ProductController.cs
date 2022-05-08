@@ -33,6 +33,13 @@ namespace practice3.Controllers
             return Ok(createdProduct);
         }
 
+        [HttpPut]
+        public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
+        {
+            Product modifiedProduct = _productManager.UpdateProduct(name, stock, type, price,code);
+            return Ok(modifiedProduct);
+        }
+
 
 
     }
