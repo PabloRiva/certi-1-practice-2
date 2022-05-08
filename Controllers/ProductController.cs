@@ -40,6 +40,12 @@ namespace practice3.Controllers
             return Ok(modifiedProduct);
         }
 
+        [HttpDelete]
+        public IActionResult DeleteProduct(int code)
+        {
+            Product deletedProduct = _productManager.DeleteProduct(code);
+            return Ok(deletedProduct);
+        }
 
 
     }
