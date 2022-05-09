@@ -33,12 +33,13 @@ namespace practice3.Controllers
             return Ok(createdCampaign);
         }
 
-        //[HttpPut]
-        //public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
-        //{
-        //    Campaign modifiedProduct = _productManager.UpdateProduct(name, stock, type, price,code);
-        //    return Ok(modifiedProduct);
-        //}
+        /*[HttpPut]
+        [Route("/search-partners")]
+        public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
+        {
+            Campaign modifiedProduct = CampaignManager.Upda(name, stock, type, price,code);
+            return Ok(modifiedProduct);
+        }*/
 
         [HttpDelete]
         public IActionResult DeleteCamapaing(string code)

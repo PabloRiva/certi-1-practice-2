@@ -1,4 +1,5 @@
 using System;
+using Services;
 
 namespace Logic
 {
@@ -12,7 +13,7 @@ namespace Logic
         public String Description { get; set; }
 
         public bool Enable { get; set; }
-        public Object partner { get; set; }
+        public Partner partner { get; set; }
     }
 }
  

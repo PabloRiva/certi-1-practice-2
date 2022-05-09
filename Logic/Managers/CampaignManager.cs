@@ -32,11 +32,11 @@ namespace Logic.Managers
             return createdCampaign;
         }
 
-        //public Campaign UpdateProduct(string name, string type, string description, bool enable)
-        //{
+        /*public Campaign UpdateProduct(string name, string type, string description, bool enable)
+        {
             
            
-        //}
+        }*/
 
         public List<Campaign> DeleteCampaign(string code)
         {
