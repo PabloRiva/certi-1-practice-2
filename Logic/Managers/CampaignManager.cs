@@ -66,5 +66,10 @@ namespace Logic.Managers
                 code = "BFRIDAY";
             return code;
         }
+
+        public void setCampaings(List<Campaign>retrieved)
+        {
+            this._campaigns = retrieved;
+        }
     }
 }
