@@ -14,37 +14,37 @@ namespace practice3.Controllers
     public class ProductController : ControllerBase
     {
 
-        private ProductManager _productManager;
-        public ProductController(ProductManager productManager)
+        private CampaignManager _campaignManager;
+        public ProductController(CampaignManager productManager)
         {
-            _productManager = productManager;
+            _campaignManager = productManager;
         }
 
         [HttpGet]
-        public IActionResult GetProducts()
+        public IActionResult GetCampaign()
         {
-            return Ok(_productManager.GetProducts());
+            return Ok(_campaignManager.GetCampaigns());
         }
 
         [HttpPost]
-        public IActionResult CreateProduct(string name, int stock, string type, double price)
+        public IActionResult CreateProduct(string name, string type, string description, bool enable)
         {
-            Product createdProduct = _productManager.CreateProduct(name, stock, type, price);
-            return Ok(createdProduct);
+            Campaign createdCampaign = _campaignManager.CreateCampaign(name,type,description,enable);
+            return Ok(createdCampaign);
         }
 
-        [HttpPut]
-        public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
-        {
-            Product modifiedProduct = _productManager.UpdateProduct(name, stock, type, price,code);
-            return Ok(modifiedProduct);
-        }
+        //[HttpPut]
+        //public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
+        //{
+        //    Campaign modifiedProduct = _productManager.UpdateProduct(name, stock, type, price,code);
+        //    return Ok(modifiedProduct);
+        //}
 
         [HttpDelete]
-        public IActionResult DeleteProduct(int code)
+        public IActionResult DeleteCamapaing(string code)
         {
-            Product deletedProduct = _productManager.DeleteProduct(code);
-            return Ok(deletedProduct);
+            List<Campaign> deletedCampaigns = _campaignManager.DeleteCampaign(code);
+            return Ok(deletedCampaigns);
         }
 
 

@@ -50,7 +50,7 @@ namespace practice3
                 });
             });
 
-            services.AddSingleton<ProductManager>();
+            services.AddSingleton<CampaignManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
