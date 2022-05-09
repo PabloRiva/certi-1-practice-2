@@ -1,15 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 namespace Services
 {
-    public class PartnersService
+    public class PartnerService
     {
+        private IConfiguration _configuration;
+        public PartnerService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public async Task<Partner> GetPartner()
         {
+            string addressURL = _configuration.GetSection("adressURL").Value;
+            
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = client.GetAsync("https://random-data-api.com/api/restaurant/random_restaurant").Result;
+            HttpResponseMessage response = await client.GetAsync(addressURL);
 
             Partner partner;
             if (response.IsSuccessStatusCode)

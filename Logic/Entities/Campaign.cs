@@ -13,7 +13,8 @@ namespace Logic
         public String Description { get; set; }
 
         public bool Enable { get; set; }
-        public Partner partner { get; set; }
+
+        public Partner Partner { get; set; }
     }
 }
  

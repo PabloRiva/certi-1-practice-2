@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Logic.Managers;
+using Services;
 
 namespace practice3
 {
@@ -51,6 +52,7 @@ namespace practice3
             });
 
             services.AddSingleton<CampaignManager>();
+            services.AddTransient<PartnerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
