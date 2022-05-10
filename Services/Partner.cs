@@ -8,6 +8,6 @@ namespace Services
 
         public String description { get; set; }
 
-        public int phone_number { get; set; }
+        public String phone_number { get; set; }
     }
 }

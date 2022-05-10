@@ -13,6 +13,7 @@ namespace Logic.Managers
         private List<Campaign> _campaigns;
         private IConfiguration _configuration;
         private PartnerService _partnerService;
+        Partner response;
         public CampaignManager(IConfiguration configuration, PartnerService partnerService)
         {
             _configuration = configuration;
@@ -25,7 +26,14 @@ namespace Logic.Managers
         }
         public List<Campaign> GetCampaigns()
         {
-           
+            foreach(Campaign camp in _campaigns)
+            {
+                if (camp.Partner == null)
+                {
+                    response = _partnerService.GetPartner().Result;
+                    camp.Partner = response;
+                }
+            }
             return _campaigns;
         }
 
