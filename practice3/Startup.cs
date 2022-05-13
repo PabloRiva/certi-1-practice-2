@@ -14,14 +14,34 @@ using System.Threading.Tasks;
 using Logic.Managers;
 using Services;
 using practice3.Middlewares;
+using Serilog;
 
 namespace practice3
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsetings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+
+            
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(Configuration)
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .Enrich.WithEnvironmentName()
+                .CreateLogger();
+
+            Log.Information("logs succesfully configured");
+            Log.Information("config file succesfully loaded");
+
         }
 
         public IConfiguration Configuration { get; }

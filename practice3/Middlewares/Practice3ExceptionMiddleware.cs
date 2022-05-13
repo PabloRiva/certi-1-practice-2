@@ -8,6 +8,7 @@ using Services;
 using System.Net;
 using Newtonsoft.Json;
 using Logic.Managers;
+using Serilog;
 
 namespace practice3.Middlewares
 {
@@ -25,9 +26,9 @@ namespace practice3.Middlewares
         {
             try
             {
-                Console.WriteLine("Antes del NEXT, en Exception handler middleware");
+                Log.Information("Antes del NEXT, en Exception handler middleware");
                 await _next(httpContext);
-                Console.WriteLine("Antes del NEXT, en Exception handler middleware");
+                Log.Information("Antes del NEXT, en Exception handler middleware");
             }
             catch(Exception e)
             {
@@ -52,6 +53,8 @@ namespace practice3.Middlewares
             var response = new { message = errorMessage, errorCode = errorCode };
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = errorCode;
+
+            Log.Information("hubo un error en la aplicacion." + e.Message);
             return httpContext.Response.WriteAsync(JsonConvert.SerializeObject(response));
         }
     }
