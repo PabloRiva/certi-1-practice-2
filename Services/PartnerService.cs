@@ -14,22 +14,35 @@ namespace Services
         }
         public async Task<Partner> GetPartner()
         {
-            string addressURL = _configuration.GetSection("adressURL").Value;
-            
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(addressURL);
+            try
+            {
+                string addressURL = _configuration.GetSection("adressURL").Value;
 
-            Partner partner;
-            if (response.IsSuccessStatusCode)
-            {
-                string responseData = await response.Content.ReadAsStringAsync();
-                partner = JsonConvert.DeserializeObject<Partner>(responseData);
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.GetAsync(addressURL);
+
+                Partner partner;
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    partner = JsonConvert.DeserializeObject<Partner>(responseData);
+                }
+                else
+                {
+                    string errorMessage = "El servidor de direcciones tuvo problemas";
+                    Console.WriteLine(errorMessage);
+                    throw new PartnerServiceNotFoundException(errorMessage);
+                }
+                return partner;
             }
-            else
+            catch(Exception)
             {
-                partner = new Partner();
+                string errorMesagge = "El servidor de servidores paso por un problema inesperado";
+                Console.WriteLine(errorMesagge);
+                throw new PartnerServiceException(errorMesagge);
             }
-            return partner;
+
+            
         }
     }
 }
