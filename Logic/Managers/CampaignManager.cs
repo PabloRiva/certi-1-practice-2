@@ -19,14 +19,14 @@ namespace Logic.Managers
             _configuration = configuration;
             _partnerService = partnerService;
             _campaigns = new List<Campaign>();
-            _campaigns.Add(new Campaign() { Name = "Descuento",Type = "Navidad", Code = "XMAX", Description = "Descuento del 10%", Enable = true, Partner = null});
+            _campaigns.Add(new Campaign() { Name = "Descuento", Type = "Navidad", Code = "XMAX", Description = "Descuento del 10%", Enable = true, Partner = null });
             _campaigns.Add(new Campaign() { Name = "Descuento", Type = "Navidad", Code = "XMAX", Description = "Descuento del 10%", Enable = true, Partner = null });
             _campaigns.Add(new Campaign() { Name = "Descuento", Type = "Navidad", Code = "XMAX", Description = "Descuento del 10%", Enable = true, Partner = null });
             _campaigns.Add(new Campaign() { Name = "Descuento", Type = "Navidad", Code = "XMAX", Description = "Descuento del 10%", Enable = true, Partner = null });
         }
         public List<Campaign> GetCampaigns()
         {
-            foreach(Campaign camp in _campaigns)
+            foreach (Campaign camp in _campaigns)
             {
                 if (camp.Partner == null)
                 {
@@ -40,17 +40,22 @@ namespace Logic.Managers
         public Campaign CreateCampaign(string name, string type, string description, bool enable)
         {
             string code = getCode(type);
+            
+            if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(type) || String.IsNullOrEmpty(description))
+            {
+                throw new InvalidCampaignDataException("Los datos son invalidos");
+            }
             Partner retrievePartner = _partnerService.GetPartner().Result;
             Campaign createdCampaign = new Campaign() { Name = name, Code = code, Description = description, Enable = enable, Type = type, Partner = retrievePartner };
             _campaigns.Add(createdCampaign);
             return createdCampaign;
         }
 
-        /*public Campaign UpdateProduct(string name, string type, string description, bool enable)
+        public void UpdateProduct(string name, string type, string description, bool enable)
         {
             
            
-        }*/
+        }
 
         public List<Campaign> DeleteCampaign(string code)
         {
@@ -59,12 +64,12 @@ namespace Logic.Managers
             {
                 if (c.Code == code)
                 {
+
                     deletedCampaigns.Add(c);
                     _campaigns.Remove(c);
-                }
-                    
-                    
+                }                                     
             }
+            
             
             return deletedCampaigns;
         }

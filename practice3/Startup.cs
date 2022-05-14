@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Logic.Managers;
 using Services;
+using practice3.Middlewares;
 using Serilog;
 
 namespace practice3
@@ -78,22 +79,21 @@ namespace practice3
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UsePractice3ExceptionMiddleware();
+         
 
+      
+
+            app.UseRouting();
+            app.UseCors();
+
+            //app.UseAuthorization();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
             app.UseSwaggerUI();
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
+     
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
