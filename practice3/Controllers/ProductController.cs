@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Logic;
 using Logic.Managers;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace practice3.Controllers
 {
@@ -35,6 +36,8 @@ namespace practice3.Controllers
         [HttpGet]
         public IActionResult GetCampaign()
         {
+            Log.Information("Antes de pedir Campañas");
+
             return Ok(_campaignManager.GetCampaigns());
         }
 
@@ -45,6 +48,8 @@ namespace practice3.Controllers
             string json = JsonConvert.SerializeObject(_campaignManager.GetCampaigns());
             System.IO.File.WriteAllText(@"..\practice3\campaigns.txt",json);
 
+            Log.Information("Se ha creado una campaña");
+
             return Ok(createdCampaign);
         }
 
@@ -53,6 +58,7 @@ namespace practice3.Controllers
         public IActionResult UpdateProduct(string name, int stock, string type, double price,int code)
         {
             Campaign modifiedProduct = CampaignManager.Upda(name, stock, type, price,code);
+            Log.Information("Campaña modificada");
             return Ok(modifiedProduct);
         }*/
 
@@ -62,6 +68,7 @@ namespace practice3.Controllers
             List<Campaign> deletedCampaigns = _campaignManager.DeleteCampaign(code);
             string json = JsonConvert.SerializeObject(_campaignManager.GetCampaigns());
             System.IO.File.WriteAllText(@"..\practice3\campaigns.txt", json);
+            Log.Information("Campaña borrada");
             return Ok(deletedCampaigns);
         }
 

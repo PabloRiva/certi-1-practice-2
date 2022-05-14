@@ -39,7 +39,7 @@ namespace practice3
                 .Enrich.WithEnvironmentName()
                 .CreateLogger();
 
-            Log.Information("config file succesfully loaded");
+            Log.Information("logs succesfully configured");
             Log.Information("config file succesfully loaded");
 
         }
